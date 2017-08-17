@@ -2,6 +2,7 @@
   <div id="app">
     <h1>Vue.js OIDC Client</h1>
     <div v-if="signedIn">
+      <span>User: {{user.profile}}</span>
       <span>{{user.profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']}}</span>
       <button v-on:click="signOut()">Sair</button>
     </div>
@@ -19,12 +20,12 @@ export default {
       signedIn: false,
       mgr: new Oidc.UserManager({
              userStore: new Oidc.WebStorageStateStore(),
-             authority: 'https://identity.yourserver.com.br/core',
-             client_id: 'your_client_id',
-             redirect_uri: 'http://localhost:8080/static/callback.html',
+             authority: 'http://localhost:9876/auth/realms/mint',
+             client_id: 'vuejs-sample-client',
+             redirect_uri: 'http://localhost:9090/static/callback.html',
              response_type: 'id_token token',
              scope: 'openid profile all_claims',
-             post_logout_redirect_uri: 'http://localhost:8080/index.html',
+             post_logout_redirect_uri: 'http://localhost:9090/index.html',
              loadUserInfo: true
            })
     }
